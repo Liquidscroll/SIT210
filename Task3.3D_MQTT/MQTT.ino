@@ -57,7 +57,6 @@ void callback(char *topic, byte *payload, unsigned int length)
 
 void reconnect()
 {
-  // Taken from other code
   // Loop until we're reconnected
   while (!client.connected()) {
     Serial.print("Attempting MQTT connection...");
