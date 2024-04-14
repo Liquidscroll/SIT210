@@ -5,5 +5,6 @@ Includes tasks:
 - 2.1P Webhook
 - 3.1P Arduino Make Webhook Trigger
 - 3.3D MQTT
-- 4.1P RPiBlink
+- 4.1P RPi Blink
 - 5.1P RPi GUI
+- 5.2C RPi Slider GUI
