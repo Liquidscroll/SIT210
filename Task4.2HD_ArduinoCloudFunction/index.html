@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LED Control</title>
+	<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+	<h2>LED Control Panel</h2>
+	<div class="radio-group">
+		<div>
+			<input type="radio" id="green" name="colour" value="green" onchange="setDatabaseValue(this.value)">
+			<label for="green">Green</label>
+		</div>
+		<div>
+			<input type="radio" id="blue" name="colour" value="blue" onchange="setDatabaseValue(this.value)">
+			<label for="blue">Blue</label>
+		</div>
+		<div>
+			<input type="radio" id="red" name="colour" value="red" onchange="setDatabaseValue(this.value)">
+			<label for="red">Red</label>
+		</div>
+		<div>
+			<input type="radio" id="none" name="colour" value="none" onchange="setDatabaseValue(this.value)">
+			<label for="none">No Colour</label>
+		</div>
+	</div>
+	
+	<script type="module">
+
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+  import { getDatabase, set, ref } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js";
+  import { getAuth, signInWithEmailAndPassword  } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js"
+  
+ const firebaseConfig = {
+    apiKey: "AIzaSyCUeZYeZJS2x8PvQWcrRPJqqu4e21Ag_9k",
+    authDomain: "arduino-function-calling.firebaseapp.com",
+    databaseURL: "https://arduino-function-calling-default-rtdb.firebaseio.com",
+    projectId: "arduino-function-calling",
+    storageBucket: "arduino-function-calling.appspot.com",
+    messagingSenderId: "41969430932",
+    appId: "1:41969430932:web:603c332c63a7d5bea39f81"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const database = getDatabase(app);
+  
+  async function fetchSecretsAndLogin()
+  {
+	try
+	{
+		const secrets = await fetch('/secrets.json'); 
+		if (!secrets.ok) {	
+			throw new Error(`HTTP error! status: ${secrets.status}`);
+		}
+		const { email, password } = await secrets.json();
+		
+		signInWithEmailAndPassword(auth, email, password)
+			.then((userCredential) => {
+			const user = userCredential.user;
+			console.log('Logged in successfully: ', user.email);
+			})
+			.catch((error) => {
+				const erroCode = error.code;
+				const errorMessage = error.message;
+				console.error('Error logging in: ', errorCode, errorMessage);
+			});
+	}
+	catch (error) 
+	{
+		console.error('Error fetching the secret: ', error);
+	}
+  }
+  
+  await fetchSecretsAndLogin();
+
+
+  async function setDatabaseValue(value) {
+    try {
+      await set(ref(database, '/colour'), {
+        colour: value
+      });
+      console.log('Data updated successfully');
+    } catch (error) {
+      console.error('Error updating data: ', error);
+    }
+  }
+
+  // Making setDatabaseValue globally accessible
+  window.setDatabaseValue = setDatabaseValue;
+  
+</script>
+
+</body>
+</html>

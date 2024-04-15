@@ -1,0 +1,53 @@
+/* styles.css */
+
+body {
+  font-family: 'Arial', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  margin: 0;
+  background-color: #f0f0f0;
+  font-size: 1rem; 
+}
+
+h2 {
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem; 
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.radio-group div {
+  margin: 0.625rem 0; 
+}
+
+input[type="radio"] {
+  margin-right: 0.625rem;
+}
+
+label {
+  font-size: 1.125rem; 
+}
+
+button {
+  display: block;
+  margin: 1.25rem auto;
+  padding: 0.625rem 1.25rem;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 0.3125rem; 
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
