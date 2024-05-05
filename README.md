@@ -9,3 +9,4 @@ Includes tasks:
 - 4.2HD Arduino Cloud Function
 - 5.1P RPi GUI
 - 5.2C RPi Slider GUI
+- 7.2D RPi Audio Processing
